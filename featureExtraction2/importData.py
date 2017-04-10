@@ -1,15 +1,25 @@
 import cv2
 import os
+import numpy as np
+import pylab as pl 
+import imutils
+from skimage import feature
 
 images = []
 labels = []
+
+new_width = 64
+new_height = 64
 
 def getData():
     for i in range(0,10):
         for filename in os.listdir('../data/'+str(i)):
             img = cv2.imread(os.path.join('../data/'+str(i),filename))
             if img is not None:
-                images.append(img)
+                gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                imgH = cv2.resize(gray, (new_width, new_height)) 
+                 
+                images.append(imgH)
                 labels.append(i)
     return [images,labels]
 
