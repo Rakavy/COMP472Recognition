@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from sklearn import ensemble, svm, metrics
+from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
 import glob, os
 import numpy as np
 from PIL import Image
@@ -39,7 +41,7 @@ def main():
 	# To apply a classifier on this data, we need to flatten the image, to
 	# turn the data in a (samples, feature) matrix:
 	n_samples = len(persianDigits)
-	setDivision = int(n_samples/2)
+	setDivision = int(0.8 * n_samples)
 	from sklearn.utils import shuffle
 	persianDigits, persianLabels = shuffle(persianDigits, persianLabels, random_state=0)
 	data = np.array(persianDigits).reshape((n_samples, -1))
@@ -54,6 +56,7 @@ def main():
 	expected = persianLabels[setDivision:]
 	predicted = classifier.predict(data[setDivision:])
 
+	print("Classification Method: SVC \n")
 	print("Classification report for classifier %s:\n%s\n"
 	      % (classifier, metrics.classification_report(expected, predicted)))
 	print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
@@ -67,6 +70,28 @@ def main():
 	# #Attempt to predict validation data
 	score=classifier.score(data[setDivision:], expected)
 	print('Random Tree Classifier:\n') 
+	print('Score\t'+str(score))
+
+	# Decision Tree Classifier
+	classifier = DecisionTreeClassifier()
+
+	# #Fit model with sample data
+	classifier.fit(data[:setDivision], persianLabels[:setDivision])
+
+	# #Attempt to predict validation data
+	score=classifier.score(data[setDivision:], expected)
+	print('Decision Tree Classifier:\n') 
+	print('Score\t'+str(score))
+
+	# Naive Bayes Classifier
+	classifier = GaussianNB()
+
+	# #Fit model with sample data
+	classifier.fit(data[:setDivision], persianLabels[:setDivision])
+
+	# #Attempt to predict validation data
+	score=classifier.score(data[setDivision:], expected)
+	print('Naive Bayes Classifier:\n') 
 	print('Score\t'+str(score))
 
 	images_and_predictions = list(zip(persianDigits[setDivision:], predicted))
