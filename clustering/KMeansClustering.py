@@ -17,7 +17,7 @@ def loadDigits(digit):
 	new_height = 64
 	
 	list = []
-	for file in glob.glob("data/" + str(digit) + "/*"):
+	for file in glob.glob("../data/" + str(digit) + "/*"):
 		im = Image.open(file)
 		im = im.resize((new_width, new_height), Image.ANTIALIAS)
 		list.append(np.array(im))
