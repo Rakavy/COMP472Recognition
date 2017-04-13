@@ -23,8 +23,8 @@ def getHog(img):
 trainingSet = importData.getTrainingSet()
 testingSet = importData.getTestingSet()
 
-print "Count of digits in training", Counter(trainingSet[1])
-print "Count of digits in testing", Counter(testingSet[1])
+print("Count of digits in training", Counter(trainingSet[1]))
+print("Count of digits in testing", Counter(testingSet[1]))
 
 hog_data = []
 n_samples = len(trainingSet[0])
