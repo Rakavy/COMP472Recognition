@@ -4,7 +4,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 import glob, os
 import numpy as np
-from PIL import Image
+from PIL import *
 import pylab as pl 
 
 def loadDigits(digit):
@@ -24,6 +24,7 @@ def main():
 	images_and_labels = []
 	for num in range(0,10):
 		digits = loadDigits(num)
+		print("Feature Extraction for num: " + str(num))
 		persianDigits.extend(digits)
 		persianLabels.extend([num] * len(digits))
 
