@@ -49,6 +49,8 @@ def main():
 	persianDigits, persianLabels = shuffle(persianDigits, persianLabels, random_state=0)
 	data = np.array(persianDigits).reshape((n_samples, -1))
 
+	print("---SVM CLASSIFICATION---")
+
 	# Create a classifier: a support vector classifier
 	classifier = svm.SVC(gamma=0.001)
 
@@ -59,10 +61,24 @@ def main():
 	expected = persianLabels[setDivision:]
 	predicted = classifier.predict(data[setDivision:])
 
-	print("Classification Method: SVC \n")
+	score=classifier.score(data[setDivision:], expected)
+	print('Score\t'+str(score))
+
 	print("Classification report for classifier %s:\n%s\n"
 	      % (classifier, metrics.classification_report(expected, predicted)))
 	print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
+
+	images_and_predictions = list(zip(persianDigits[setDivision:], predicted))
+	for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+	    plt.subplot(2, 4, index + 5)
+	    plt.axis('off')
+	    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+	    plt.title('Prediction: %i' % prediction)
+
+	plt.show()
+
+
+	print("---RANDOM FOREST CLASSIFICATION---")
 
 	# #Using the Random Tree Classifier
 	classifier = ensemble.RandomForestClassifier()
@@ -70,32 +86,72 @@ def main():
 	# #Fit model with sample data
 	classifier.fit(data[:setDivision], persianLabels[:setDivision])
 
-	# #Attempt to predict validation data
+	expected = persianLabels[setDivision:]
+	predicted = classifier.predict(data[setDivision:])
+
 	score=classifier.score(data[setDivision:], expected)
-	print('Random Tree Classifier:\n') 
 	print('Score\t'+str(score))
 
+	print("Classification Method: RFC \n")
+	print("Classification report for classifier %s:\n%s\n"
+	      % (classifier, metrics.classification_report(expected, predicted)))
+	print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
+
+	images_and_predictions = list(zip(persianDigits[setDivision:], predicted))
+	for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+	    plt.subplot(2, 4, index + 5)
+	    plt.axis('off')
+	    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+	    plt.title('Prediction: %i' % prediction)
+
+	plt.show()
+
+
+	print("---DECISION TREE CLASSIFICATION---")
 	# Decision Tree Classifier
 	classifier = DecisionTreeClassifier()
 
 	# #Fit model with sample data
 	classifier.fit(data[:setDivision], persianLabels[:setDivision])
 
-	# #Attempt to predict validation data
+	expected = persianLabels[setDivision:]
+	predicted = classifier.predict(data[setDivision:])
+
 	score=classifier.score(data[setDivision:], expected)
-	print('Decision Tree Classifier:\n') 
 	print('Score\t'+str(score))
 
+	print("Classification Method: DTC \n")
+	print("Classification report for classifier %s:\n%s\n"
+	      % (classifier, metrics.classification_report(expected, predicted)))
+	print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
+
+	images_and_predictions = list(zip(persianDigits[setDivision:], predicted))
+	for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+	    plt.subplot(2, 4, index + 5)
+	    plt.axis('off')
+	    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+	    plt.title('Prediction: %i' % prediction)
+
+	plt.show()
+
+
+	print("---NAIVE BAYES CLASSIFICATION---")
 	# Naive Bayes Classifier
 	classifier = GaussianNB()
 
 	# #Fit model with sample data
 	classifier.fit(data[:setDivision], persianLabels[:setDivision])
 
-	# #Attempt to predict validation data
+	expected = persianLabels[setDivision:]
+	predicted = classifier.predict(data[setDivision:])
+
 	score=classifier.score(data[setDivision:], expected)
-	print('Naive Bayes Classifier:\n') 
 	print('Score\t'+str(score))
+
+	print("Classification Method: NBC \n")
+	print("Classification report for classifier %s:\n%s\n"
+	      % (classifier, metrics.classification_report(expected, predicted)))
+	print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
 
 	images_and_predictions = list(zip(persianDigits[setDivision:], predicted))
 	for index, (image, prediction) in enumerate(images_and_predictions[:4]):
