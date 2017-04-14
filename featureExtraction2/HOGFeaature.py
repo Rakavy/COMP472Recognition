@@ -33,13 +33,6 @@ for f in trainingSet[0]:
     hog_data.append(fd)
 hog_features = np.array(hog_data).reshape((n_samples, -1))
 
-# Create a classifier: a support vector classifier
-classifier = svm.SVC(gamma=0.001)
-
-# We learn the digits on the first half of the digits
-classifier.fit(hog_features, trainingSet[1])
-
-# Now predict the value of the digit on the second half:
 expected = testingSet[1]
 hog_data_test = []
 
@@ -49,12 +42,32 @@ for f in testingSet[0]:
     hog_data_test.append(fd)
 hog_features_test = np.array(hog_data_test).reshape((n_samples_test, -1))
 
+print("---SVM CLASSIFICATION---")
+
+# Create a classifier: a support vector classifier
+classifier = svm.SVC(gamma=0.001)
+
+# We learn the digits on the first half of the digits
+classifier.fit(hog_features, trainingSet[1])
+
+score=classifier.score(hog_features_test, expected)
+print('Score\t'+str(score))
+
 predicted = classifier.predict(hog_features_test)
 
 print("Classification report for classifier %s:\n%s\n"
         % (classifier, metrics.classification_report(expected, predicted)))
 print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
 
+images_and_predictions = list(zip(testingSet[0], predicted))
+for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+    plt.subplot(2, 4, index + 5)
+    plt.axis('off')
+    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+    plt.title('Prediction: %i' % prediction)
+plt.show()  
+
+print("---RANDOM FOREST CLASSIFICATION---")
 # #Using the Random Tree Classifier
 classifier = ensemble.RandomForestClassifier()
 
@@ -62,9 +75,24 @@ classifier = ensemble.RandomForestClassifier()
 classifier.fit(hog_features, trainingSet[1])
 
 # #Attempt to predict validation data
+predicted = classifier.predict(hog_features_test)
+
 score=classifier.score(hog_features_test, expected)
-print('Random Tree Classifier:\n') 
 print('Score\t'+str(score))
+
+print("Classification report for classifier %s:\n%s\n"
+        % (classifier, metrics.classification_report(expected, predicted)))
+print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
+
+images_and_predictions = list(zip(testingSet[0], predicted))
+for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+    plt.subplot(2, 4, index + 5)
+    plt.axis('off')
+    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+    plt.title('Prediction: %i' % prediction)
+plt.show()  
+
+print("---DECISION TREE CLASSIFICATION---")
 
 # Decision Tree Classifier
 classifier = DecisionTreeClassifier()
@@ -73,20 +101,39 @@ classifier = DecisionTreeClassifier()
 classifier.fit(hog_features, trainingSet[1])
 
 # #Attempt to predict validation data
+predicted = classifier.predict(hog_features_test)
+
 score=classifier.score(hog_features_test, expected)
-print('Decision Tree Classifier:\n') 
 print('Score\t'+str(score))
 
+print("Classification report for classifier %s:\n%s\n"
+        % (classifier, metrics.classification_report(expected, predicted)))
+print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
+
+images_and_predictions = list(zip(testingSet[0], predicted))
+for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+    plt.subplot(2, 4, index + 5)
+    plt.axis('off')
+    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+    plt.title('Prediction: %i' % prediction)
+plt.show()  
+
+print("---NAIVE BAYES CLASSIFICATION---")
 # Naive Bayes Classifier
 classifier = GaussianNB()
 
 ##Fit model with sample data
 classifier.fit(hog_features, trainingSet[1])
 
-##Attempt to predict validation data
-score=classifier.score(hog_features_test,expected)
-print('Naive Bayes Classifier:\n') 
+# #Attempt to predict validation data
+predicted = classifier.predict(hog_features_test)
+
+score=classifier.score(hog_features_test, expected)
 print('Score\t'+str(score))
+
+print("Classification report for classifier %s:\n%s\n"
+        % (classifier, metrics.classification_report(expected, predicted)))
+print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
 
 images_and_predictions = list(zip(testingSet[0], predicted))
 for index, (image, prediction) in enumerate(images_and_predictions[:4]):

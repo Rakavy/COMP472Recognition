@@ -27,43 +27,43 @@ def getTrainingSet():
     trainingFeature = []
     trainingLabel = []
 
-    for i in range(0,500):
+    for i in range(0,800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
     
-    for i in range(1000,1500):
+    for i in range(1000,1800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
     
-    for i in range(2000,2500):
+    for i in range(2000,2800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
-    for i in range(3000,3500):
+    for i in range(3000,3800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
-    for i in range(4000,4500):
+    for i in range(4000,4800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
-    for i in range(5000,5500):
+    for i in range(5000,5800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
-    for i in range(6000,6500):
+    for i in range(6000,6800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
-    for i in range(7000,7500):
+    for i in range(7000,7800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
-    for i in range(8000,8500):
+    for i in range(8000,8800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
-    for i in range(9000,9500):
+    for i in range(9000,9800):
         trainingFeature.append(images[i])
         trainingLabel.append(labels[i])
 
@@ -73,43 +73,43 @@ def getTestingSet():
     testingFeature = []
     testingLabel = []
 
-    for i in range(500,1000):
+    for i in range(800,1000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
     
-    for i in range(1500,2000):
+    for i in range(1800,2000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
     
-    for i in range(2500,3000):
+    for i in range(2800,3000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
 
-    for i in range(3500,4000):
+    for i in range(3800,4000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
 
-    for i in range(4500,5000):
+    for i in range(4800,5000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
 
-    for i in range(5500,6000):
+    for i in range(5800,6000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
 
-    for i in range(6500,7000):
+    for i in range(6800,7000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
 
-    for i in range(7500,8000):
+    for i in range(7800,8000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
 
-    for i in range(8500,9000):
+    for i in range(8800,9000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
 
-    for i in range(9500,10000):
+    for i in range(9800,10000):
         testingFeature.append(images[i])
         testingLabel.append(labels[i])
  
