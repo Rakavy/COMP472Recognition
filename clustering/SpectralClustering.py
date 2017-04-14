@@ -1,3 +1,6 @@
+import numpy as np
+from sklearn.cluster import KMeans,DBSCAN ,SpectralClustering,Birch
+import glob, os
 from PIL import Image
 import matplotlib.pyplot as plt 
 import matplotlib.cm as cm
@@ -14,7 +17,7 @@ def loadDigits(digit):
 	new_height = 64
 	
 	list = []
-	for file in glob.glob("data/" + str(digit) + "/*"):
+	for file in glob.glob("../data/" + str(digit) + "/*"):
 		im = Image.open(file)
 		im = im.resize((new_width, new_height), Image.ANTIALIAS)
 		list.append(np.array(im))
@@ -49,14 +52,15 @@ def SepectralClustering(data,actualLabels):
     t0 = time()
     spectral.fit(pca_2d)
     print('% 9s' % 'init'
-      '    time  inertia    homo   compl  v-meas     ARI AMI  silhouette')
-    print(('Spectral', (time() - t0), spectral.inertia_,
-             metrics.homogeneity_score(actualLabels, spectral.labels_),
-             metrics.completeness_score(actualLabels, spectral.labels_),
-             metrics.v_measure_score(actualLabels, spectral.labels_),
-             metrics.adjusted_rand_score(actualLabels, spectral.labels_),
-             metrics.adjusted_mutual_info_score(actualLabels,  spectral.labels_),
-             metrics.silhouette_score(pc_2d, spectral.labels_,metric='euclidean',sample_size=10000)))
+      '    time   homo   compl  v-meas     ARI AMI  silhouette')
+    print('% 9s   %.2fs    %i   %.3f   %.3f   %.3f   %.3f'   
+            %('Spectral', (time() - t0),
+            metrics.homogeneity_score(actualLabels, spectral.labels_),
+            metrics.completeness_score(actualLabels, spectral.labels_),
+            metrics.v_measure_score(actualLabels, spectral.labels_),
+            metrics.adjusted_rand_score(actualLabels, spectral.labels_),
+            metrics.adjusted_mutual_info_score(actualLabels,  spectral.labels_),
+            metrics.silhouette_score(data, spectral.labels_,metric='euclidean',sample_size=10000)))
 
     print spectral.labels_
     print len(np.unique(spectral.labels_))

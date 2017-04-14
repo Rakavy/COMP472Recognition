@@ -43,9 +43,10 @@ def main():
         fd = getHog(f)
         hog_data.append(fd)
     data = np.array(hog_data).reshape((n_samples, -1))
-    # KMeansClustering(data,persianLabels)
-    # SepectralClustering(data,persianLabels)
-    BirchModel(data,persianLabels)
+    
+    KMeansClustering(data,persianLabels)
+    #SepectralClustering(data,persianLabels)
+    #BirchModel(data,persianLabels)
 
 def KMeansClustering(data,actualLabels):
     pca = PCA(n_components=2).fit(data)
