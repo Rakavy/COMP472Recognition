@@ -1,3 +1,5 @@
+# Classifying digits code based on http://scikit-learn.org/stable/auto_examples/classification/plot_digits_classification.html
+
 import matplotlib.pyplot as plt
 from sklearn import ensemble, svm, metrics
 from sklearn.naive_bayes import GaussianNB
